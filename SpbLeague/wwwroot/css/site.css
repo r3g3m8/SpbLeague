@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+
+* {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
+}
+
+body {
+    margin-bottom: 60px;
+}
+
+ul {
+    list-style: none;
+}
+
+a, a:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.spb-logo {
+    margin-right: 1rem;
+    padding: 0 1rem;
+}
+
+.nav-bar, .nav-menu {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    background-color: lightcyan;
+}
+
+    .nav-menu > ul {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin: 0 1rem;
+        align-items: center;
+        line-height: 5rem;
+        padding: 0;
+    }
+
+        .nav-menu > ul > li {
+            cursor: pointer;
+            padding: 0 1rem;
+        }
+
+.nav-menu-hover :hover {
+    background-color: lightcyan;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    opacity: 1;
+    line-height: 2.5rem;
+    width: 100%;
+    right: 0;
+}
+
+.dropdown :hover {
+    background-color: white;
+}
+
+.dropdown-content > a:hover {
+    background-color: burlywood;
+}
+
+.dropdown-content > a {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

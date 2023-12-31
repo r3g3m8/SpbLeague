@@ -1,0 +1,32 @@
+﻿@model SpbLeague.Domain.ViewModels.LoginViewModel
+
+@{
+    Layout = "_Layout";
+    ViewBag.Title = "Вход в аккаунт";
+}
+
+<div class="center">
+    <h1>Вход</h1>
+    <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+        <div class="txt_field">
+            <input asp-for="Email" placeholder="Email" type="email">
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="txt_field">
+            <input autocomplete="new-password" asp-for="Password" placeholder="Пароль" type="password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="pass">Забыли пароль?</div>
+        <button>Войти</button>
+        <div class="signup_link">
+            Ещё нет аккаунта? <a asp-controller="Account" asp-action="Register">Регистрация</a>
+        </div>
+    </form>
+    @Html.ValidationSummary()
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
