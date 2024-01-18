@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using SpbLeague.Models;
 using System.Diagnostics;
 
@@ -8,16 +10,17 @@ namespace SpbLeague.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
         }
-
         public IActionResult Index()
         {
             return View();
         }
 
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

@@ -14,26 +14,29 @@ using SpbLeague.Domain.Enum;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace SpbLeague.Service.Implementations
 {
-    public class AccountService : IAccountService
+    public class AccountService
     {
         private readonly IConfiguration _config;
         private readonly IBaseRepository<User> _userRepository;
+        
 
-        public AccountService(IConfiguration config, IBaseRepository<User> userRepository)
+        public AccountService(IConfiguration config, IBaseRepository<User> userRepository
+            )
         {
             _config = config;
             _userRepository = userRepository;
         }
 
-        public async Task<BaseResponse<User>> Login(LoginViewModel userLogin)
+        /*public async Task<BaseResponse<User>> Login(LoginViewModel userLogin)
         {
             try
             {
-                var user = await _userRepository.GetByEmail(userLogin.Email);
-
+                //var user = await _userRepository.GetByEmail(userLogin.Email);
+                
                 if (user == null)
                 {
                     return new BaseResponse<User>()
@@ -43,7 +46,7 @@ namespace SpbLeague.Service.Implementations
                     };
                 }
 
-                if(user.Password != HashPasswordHelper.HashPassowrd(userLogin.Password))
+                if(user.PasswordHash != HashPasswordHelper.HashPassowrd(userLogin.Password))
                 {
                     return new BaseResponse<User>()
                     {
@@ -72,7 +75,8 @@ namespace SpbLeague.Service.Implementations
 
         public async Task<BaseResponse<User>> Register(RegisterViewModel register)
         {
-            var user = await _userRepository.GetByEmail(register.Email);
+            //var user = await _userRepository.GetByEmail(register.Email);
+            var user = await _userManager.FindByEmailAsync(register.Email);
             try
             {
                 if(user != null)
@@ -82,18 +86,20 @@ namespace SpbLeague.Service.Implementations
                         Description = "Пользователь с таким логином уже есть"
                     };
                 }
-                user = new User()
+
+                var newUser = new IdentityUser
                 {
-                    Id = Ulid.NewUlid().ToString(),
-                    Name = register.Name,
-                    Surname = register.Surname,
+                    UserName = register.Name,
                     Email = register.Email,
-                    Birthday = DateOnly.FromDateTime(DateTime.Now),
-                    Role = Role.User,
-                    Password = HashPasswordHelper.HashPassowrd(register.Password)
                 };
 
-                _userRepository.Create(user);
+                var result = await _userManager.CreateAsync(user, register.Password);
+
+                if(result.Succeeded)
+                {
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                }
+                //_userRepository.Create(user);
                 var token = Authenticate(user);
 
                 return new BaseResponse<User>()
@@ -133,6 +139,6 @@ namespace SpbLeague.Service.Implementations
               signingCredentials: credentials);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+        }*/
     }
 }

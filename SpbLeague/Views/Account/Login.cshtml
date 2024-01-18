@@ -1,13 +1,13 @@
 ﻿@model SpbLeague.Domain.ViewModels.LoginViewModel
 
 @{
-    Layout = "_Layout";
     ViewBag.Title = "Вход в аккаунт";
 }
 
 <div class="center">
     <h1>Вход</h1>
     <form autocomplete="on" method="post" asp-controller="Account" asp-action="Login">
+        @Html.ValidationSummary()
         <div class="txt_field">
             <input asp-for="Email" placeholder="Email" type="email">
             <span asp-validation-for="Email" class="text-danger"></span>
@@ -22,7 +22,6 @@
             Ещё нет аккаунта? <a asp-controller="Account" asp-action="Register">Регистрация</a>
         </div>
     </form>
-    @Html.ValidationSummary()
 </div>
 
 @section Scripts {

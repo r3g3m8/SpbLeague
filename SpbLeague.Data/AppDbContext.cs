@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using SpbLeague.Domain.Models;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,8 @@ using System.Threading.Tasks;
 
 namespace SpbLeague.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<User>
     {
-        public DbSet<User> Users { get; set; }
         public AppDbContext(DbContextOptions<AppDbContext> options)
         : base(options)
         {
